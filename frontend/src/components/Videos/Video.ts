@@ -1,8 +1,8 @@
 export default interface Video {
-  description: String;
+  description: string;
   title: string;
   url: string;
-  _id?: String;
-  createdAt?: String;
-  updatedAt?: String;
+  _id?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
