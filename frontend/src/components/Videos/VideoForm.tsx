@@ -5,11 +5,13 @@ import Video from "./Video";
 import * as videoService from "./VideoService";
 
 const VideoForm = () => {
-  const [video, setVideo] = useState<Video>({
+  const initialState = {
     title: "",
     url: "",
     description: "",
-  });
+  };
+
+  const [video, setVideo] = useState<Video>(initialState);
 
   type InputChange = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
 
@@ -40,6 +42,7 @@ const VideoForm = () => {
                   name="title"
                   placeholder="Add title for this video"
                   onChange={handleInputChange}
+                  value={video.title}
                   autoFocus
                 />
               </div>
@@ -50,6 +53,7 @@ const VideoForm = () => {
                   name="url"
                   placeholder="https://something.com"
                   onChange={handleInputChange}
+                  value={video.url}
                 />
               </div>
               <div className="form-group">
@@ -59,6 +63,7 @@ const VideoForm = () => {
                   name="description"
                   placeholder="Write a description for the video"
                   onChange={handleInputChange}
+                  value={video.description}
                 />
               </div>
               <button className="btn btn-primary">Create Video</button>
