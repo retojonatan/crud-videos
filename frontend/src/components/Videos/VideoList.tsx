@@ -6,7 +6,16 @@ import * as videoService from "./VideoService";
 const VideoList = () => {
   const loadVideoList = async () => {
     const res = await videoService.getVideos();
-    setVideos(res.data);
+    const sortedVideos = res.data
+      .map((video) => {
+        return {
+          ...video,
+          createdAt: video.createdAt ? new Date(video.createdAt) : new Date(),
+          updatedAt: video.updatedAt ? new Date(video.updatedAt) : new Date(),
+        };
+      })
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    setVideos(sortedVideos);
   };
 
   const [videos, setVideos] = useState<Video[]>([]);
@@ -14,10 +23,13 @@ const VideoList = () => {
   useEffect(() => {
     loadVideoList();
   }, []);
+
   return (
-    <div>
+    <div className="row">
       {videos.map((video) => {
-        return <VideoItem video={video} />;
+        return (
+          <VideoItem video={video} key={video._id} loadVideos={loadVideoList} />
+        );
       })}
     </div>
   );
